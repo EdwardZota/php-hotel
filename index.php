@@ -52,8 +52,8 @@
     <title>Hotels & Co.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
-<body class="text-center">
-    <form action="index.php" method="GET" class="d-flex justify-content-center py-3">
+<body class="text-center bg-info bg-gradiant text-white">
+    <form action="index.php" method="GET" class="d-flex justify-content-center py-3 border border-white">
         <div class="form-group mx-5">
             <label for="parking">Parcheggio:</label>
             <select name="parking" id="parking">
@@ -68,10 +68,10 @@
             <input type="number" name="voto" id="voto"/>
         </div>
 
-        <button type="submit">Cerca</button>
+        <button type="submit" class="btn btn-primary" >Cerca</button>
     </form>
 
-    <table class="table table-hover">
+    <table class="table table-hover border border-white shadow-lg">
         <thead>
             <tr>
                 <?php 
@@ -104,7 +104,7 @@
 
                 foreach($hotelFiltrati as $hotel){
 
-                    echo '<tr>';
+                    echo '<tr class="text-white">';
 
                     foreach($hotel as $info => $value){
 
