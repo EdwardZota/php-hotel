@@ -52,7 +52,29 @@
     <title>Hotels & Co.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
-<body>
+<body class="text-center">
+    <div>
+        <?php
+            var_dump($arrayParkingSi);
+        ?>
+    </div>
+    <form action="index.php" method="GET" class="d-flex justify-content-center py-3">
+        <div class="form-group mx-5">
+            <label for="parking">Parcheggio:</label>
+            <select name="parking" id="parking">
+                <option value=""></option>
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group mx-5">
+            <label for="voto">Votazione:</label>
+            <input type="number" name="voto" id="voto"/>
+        </div>
+
+        <button type="submit">Cerca</button>
+    </form>
 
     <table class="table table-hover">
         <thead>
@@ -66,20 +88,42 @@
         </thead>
         <tbody>
             <?php 
+
+                $filtroParcheggio=null;
+                if(isset($_GET['parking'])){
+                    $filtroParcheggio=$_GET['parking'];
+                }
+                $filtroVoto=null;
+                if(isset($_GET['voto'])){
+                    $filtroVoto=$_GET['voto'];
+                }
+
+                $hotelFiltrati=[];
                 foreach($hotels as $hotel){
+                    if($filtroParcheggio=='' || ($filtroParcheggio=='Si' && $hotel['parking']==true) || ($filtroParcheggio=='No' && $hotel['parking']==false)){
+                        if($filtroVoto=='' || $hotel['vote'] >= $filtroVoto){
+                            $hotelFiltrati[]=$hotel;
+                        }
+                    }
+                }
+
+                foreach($hotelFiltrati as $hotel){
 
                     echo '<tr>';
+
                     foreach($hotel as $info => $value){
 
-                        if($info == 'parking' ){
-
+                            if($info == 'parking' ){
+                                
                             if($value==true){
                                 $value='Si';
                             }else{
                                 $value='No';
                             }
                         }
+
                         echo "<td>". $value ."</td>";
+
                     }
                     echo '</tr>';
                 }
